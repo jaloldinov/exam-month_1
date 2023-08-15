@@ -25,10 +25,8 @@ func (c *Controller) Task_1() {
 //     3. Name: Qora futbolka Price: 98000 Count: 3 Total: 294000 Time: 2022-03-29 11:10:52
 //     4. Name: Qora futbolka Price: 98000 Count: 3 Total: 294000 Time: 2022-03-29 11:10:52
 
-// 4. User qancha pul mahsulot sotib olganligi haqida hisobot.
-// M:
-//
-//	Name: David Total Buy Price: 2022000
+//  4. User qancha pul mahsulot sotib olganligi haqida hisobot.
+//     Name: David Total Buy Price: 2022000
 func (c *Controller) Task_4() {
 	products, _ := readProduct("data/product.json")
 	cards, _ := readCards("data/shop_cart.json")
@@ -55,10 +53,27 @@ func (c *Controller) Task_4() {
 	}
 }
 
-// 5. Productlarni Qancha sotilgan boyicha hisobot
-// M:
-//
-//	Name: Asus count: 2
+//  5. Productlarni Qancha sotilgan boyicha hisobot
+//     Name: Asus count: 2
+func (c *Controller) Task_5() {
+	products, _ := readProduct("data/product.json")
+	cards, _ := readCards("data/shop_cart.json")
+
+	productIdName := make(map[string]string)
+	for _, p := range products {
+		productIdName[p.Id] = p.Name
+	}
+
+	prodIdTotalSell := make(map[string]int)
+	for _, c := range cards {
+		prodIdTotalSell[c.ProductId] += c.Count
+	}
+
+	for id, count := range prodIdTotalSell {
+		//     Name: Asus count: 2
+		fmt.Printf("Name: %s - Count: %d\n", productIdName[id], count)
+	}
+}
 
 // ============== READERS ===================
 func readCards(data string) ([]models.ShopCard, error) {

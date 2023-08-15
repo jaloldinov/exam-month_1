@@ -15,5 +15,8 @@ func main() {
 	}
 	con := controller.NewController(&cfg, strg)
 	fmt.Println(con)
-	con.Task_4()
+
+	// con.Task_4()
+	con.Task_5()
+
 }
