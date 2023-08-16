@@ -2,7 +2,6 @@ package controller
 
 import (
 	"errors"
-	"fmt"
 	"log"
 
 	"app/models"
@@ -38,7 +37,7 @@ func (c *Controller) ProductGetList(req *models.ProductGetListRequest) (*models.
 		log.Printf("error while user GetList: %+v\n", err)
 		return nil, err
 	}
-	fmt.Println(resp)
+
 	return resp, nil
 }
 
@@ -49,7 +48,6 @@ func (c *Controller) ProductUpdate(req *models.UpdateProduct) (*models.Product, 
 		log.Printf("error while user Update: %+v\n", err)
 		return nil, err
 	}
-
 	return resp, nil
 }
 

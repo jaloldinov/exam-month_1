@@ -1,7 +1,10 @@
 package jsondb
 
 import (
+	"encoding/json"
 	"errors"
+	"io/ioutil"
+	"log"
 	"os"
 	"time"
 
@@ -72,16 +75,16 @@ func (o *OrderRepo) GetList(ord *models.OrderGetListRequest) (*models.OrderGetLi
 	var resp = &models.OrderGetList{}
 	resp.Orders = []*models.Order{}
 
-	orderMap, err := file.Read(o.fileName)
+	orderMap, err := o.read()
 	if err != nil {
 		return nil, err
 	}
 	resp.Count = len(orderMap)
 	for _, val := range orderMap {
-		if _, ok := val.(models.Order); ok {
-			order := val.(models.Order)
-			resp.Orders = append(resp.Orders, &order)
-		}
+
+		order := val
+		resp.Orders = append(resp.Orders, &order)
+
 	}
 	return resp, nil
 }
@@ -192,4 +195,29 @@ func (o *OrderRepo) RemoveOrderItem(req *models.RemoveOrderItemPrimaryKey) error
 	}
 
 	return nil
+}
+
+func (u *OrderRepo) read() (map[string]models.Order, error) {
+	var (
+		orders   []*models.Order
+		orderMap = make(map[string]models.Order)
+	)
+
+	data, err := ioutil.ReadFile(u.fileName)
+	if err != nil {
+		log.Printf("Error while Read data: %+v", err)
+		return nil, err
+	}
+
+	err = json.Unmarshal(data, &orders)
+	if err != nil {
+		log.Printf("Error while Unmarshal data: %+v", err)
+		return nil, err
+	}
+
+	for _, order := range orders {
+		orderMap[order.Id] = *order
+	}
+
+	return orderMap, nil
 }

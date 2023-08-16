@@ -39,3 +39,8 @@ type ProductGetListResponse struct {
 	Count    int
 	Products []*Product
 }
+
+type Task5 struct {
+	Name  string
+	Count int
+}

@@ -45,7 +45,7 @@
         "id": "2258b75f-d706-48f9-8fbf-c8a8b1028d14",
         "name": "Adidas",
         "price": 31000,
-        "category_id": "87adfef3-daaf-4291-bc2c-456e06dbc49f"
+        "category_id": "117bc391-ce09-4976-b5e9-7fdde869895b"
     },
     {
         "id": "7df81816-0b37-4922-bd87-d5dbe0f47c56",
@@ -183,7 +183,7 @@
         "id": "d9cb7d04-754b-4618-b5a1-9766cc9ebbde",
         "name": "Inferno",
         "price": 54000,
-        "category_id": "bfca8c38-e85a-42c5-89af-8777c448e711"
+        "category_id": "63f835a6-3b44-419b-94ea-c5f8d406c796"
     },
     {
         "id": "92e6152e-87d6-4caf-a778-acee9e407154",
