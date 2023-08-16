@@ -13,6 +13,10 @@ type Order struct {
 	Status     string             `json:"status"`
 	OrderItems []*CreateOrderItem `json:"order_items"`
 }
+type Task2request struct {
+	FromDate string
+	ToDate   string
+}
 
 type OrderGetList struct {
 	Count  int

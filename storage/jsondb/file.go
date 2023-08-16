@@ -12,6 +12,7 @@ type StoreJSON struct {
 	category *CategoryRepo
 	product  *ProductRepo
 	order    *OrderRepo
+	branch   *BranchRepo
 }
 
 func NewConnectionJSON(cfg *config.Config) (storage.StorageI, error) {
@@ -36,11 +37,17 @@ func NewConnectionJSON(cfg *config.Config) (storage.StorageI, error) {
 		return nil, err
 	}
 
+	branchFile, err := os.Open(cfg.Path + cfg.BranchFileName)
+	if err != nil {
+		return nil, err
+	}
+
 	return &StoreJSON{
 		user:     NewUserRepo(cfg.Path+cfg.UserFileName, userFile),
 		category: NewCategoryRepo(cfg.Path+cfg.CategoryFileName, categoryFile),
 		product:  NewProductRepo(cfg.Path+cfg.ProductFileName, productFile),
 		order:    NewOrderRepo(cfg.Path+cfg.OrderFileName, orderFile),
+		branch:   NewBranchRepo(cfg.Path+cfg.BranchFileName, branchFile),
 	}, nil
 }
 
@@ -58,4 +65,8 @@ func (p *StoreJSON) Product() storage.ProductRepoI {
 
 func (o *StoreJSON) Order() storage.OrderRepoI {
 	return o.order
+}
+
+func (o *StoreJSON) Branch() storage.BranchRepoI {
+	return o.branch
 }

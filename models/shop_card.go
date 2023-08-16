@@ -7,16 +7,8 @@ type ShopCard struct {
 	Status    bool   `json:"status"`
 	Time      string `json:"time"`
 }
-
-type Task3 struct {
-	ProductName string
-	Price       int
-	Count       int
-	Total       int
-	Time        string
-}
-
-type Task3Model struct {
-	UserName string
-	Data     []Task3
+type Task8Model struct {
+	Name  string
+	Time  string
+	Count int
 }

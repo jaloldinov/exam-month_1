@@ -15,7 +15,4 @@ func main() {
 	}
 	con := controller.NewController(&cfg, strg)
 	fmt.Println(con)
-
-	// fmt.Println(con.Task_3("e6ded598-675b-4de2-a1e9-00a876b8e719"))
-	fmt.Println(con.Task_9())
 }

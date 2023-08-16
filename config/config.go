@@ -19,6 +19,7 @@ type Config struct {
 	CategoryFileName string
 	ProductFileName  string
 	OrderFileName    string
+	BranchFileName   string
 }
 
 func Load() Config {
@@ -33,6 +34,7 @@ func Load() Config {
 	cfg.CategoryFileName = "/category.json"
 	cfg.ProductFileName = "/product.json"
 	cfg.OrderFileName = "/order.json"
+	cfg.BranchFileName = "/branch.json"
 
 	return cfg
 }

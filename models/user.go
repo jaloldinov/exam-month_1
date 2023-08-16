@@ -33,3 +33,11 @@ type UserGetListResponse struct {
 	Count int
 	Users []*User
 }
+
+type Task3Model struct {
+	Name  string
+	Price int
+	Count int
+	Total int
+	Time  string
+}

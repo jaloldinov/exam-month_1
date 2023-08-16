@@ -9,6 +9,7 @@ type StorageI interface {
 	Category() CategoryRepoI
 	Product() ProductRepoI
 	Order() OrderRepoI
+	Branch() BranchRepoI
 }
 
 type UserRepoI interface {
@@ -43,4 +44,12 @@ type OrderRepoI interface {
 	Delete(*models.OrderPrimaryKey) error
 	AddOrderItem(*models.CreateOrderItem) error
 	RemoveOrderItem(*models.RemoveOrderItemPrimaryKey) error
+}
+
+type BranchRepoI interface {
+	Create(*models.CreateBranch) (*models.BranchPrimaryKey, error)
+	GetById(*models.BranchPrimaryKey) (*models.Branch, error)
+	GetList(*models.BranchGetListRequest) (*models.BranchGetListResponse, error)
+	Update(*models.Branch) (*models.Branch, error)
+	Delete(*models.BranchPrimaryKey) (string, error)
 }
