@@ -308,7 +308,7 @@ func (c *Controller) Task_10() []models.NameCount {
 //  11. Agar User 9 dan kop mahuslot sotib olgan bolsa,
 //     1 tasi tekinga beriladi va 9 ta uchun pul hisoblanadi.
 //     1 tasi eng arzon mahsulotni pulini hisoblamaysiz.
-func (c *Controller) Task_11() []*models.Order {
+func (c *Controller) Task_11() *models.OrderGetList {
 	resp, _ := c.OrderGetList(&models.OrderGetListRequest{})
 	orders := resp.Orders
 
@@ -330,7 +330,8 @@ func (c *Controller) Task_11() []*models.Order {
 			}
 		}
 	}
-	return orders
+
+	return resp
 }
 
 // ============== READERS ===================

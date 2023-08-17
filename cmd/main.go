@@ -17,7 +17,7 @@ func main() {
 
 	resp := con.Task_11()
 
-	for _, items := range resp {
+	for _, items := range resp.Orders {
 		fmt.Println(items.Sum)
 	}
 }
