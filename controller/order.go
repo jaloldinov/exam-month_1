@@ -147,18 +147,12 @@ func (c *Controller) OrderPayment(req *models.OrderPayment) error {
 	// =========================================
 	if order.SumCount > 9 {
 		minPrice := math.MaxInt64
-		minPriceIndex := -1
-		count := 0
-		for j, item := range order.OrderItems {
+		for _, item := range order.OrderItems {
 			if (item.TotalPrice / item.Count) < minPrice {
 				minPrice = item.TotalPrice / item.Count
-				minPriceIndex = j
-				count = item.Count
 			}
 		}
-		if minPriceIndex != -1 {
-			order.Sum -= (order.OrderItems[minPriceIndex].TotalPrice / count)
-		}
+		order.Sum -= minPrice
 	}
 	// =========================================
 
