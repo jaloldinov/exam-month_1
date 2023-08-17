@@ -327,8 +327,6 @@ func (c *Controller) Task_11() []*models.Order {
 
 			if minPriceIndex != -1 {
 				orders[i].Sum -= (orders[i].OrderItems[minPriceIndex].TotalPrice / count)
-
-				fmt.Println(orders[i].Sum)
 			}
 		}
 	}
