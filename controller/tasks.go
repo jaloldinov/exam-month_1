@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math"
 	"os"
 	"sort"
 	"time"
@@ -307,27 +308,31 @@ func (c *Controller) Task_10() []models.NameCount {
 //  11. Agar User 9 dan kop mahuslot sotib olgan bolsa,
 //     1 tasi tekinga beriladi va 9 ta uchun pul hisoblanadi.
 //     1 tasi eng arzon mahsulotni pulini hisoblamaysiz.
-func (c *Controller) Task_11() int {
+func (c *Controller) Task_11() []*models.Order {
 	resp, _ := c.OrderGetList(&models.OrderGetListRequest{})
 	orders := resp.Orders
 
-	totalSum := 0
-	for _, order := range orders {
-		orderSum := order.Sum
-		orderCount := order.SumCount
+	for i := range orders {
+		if orders[i].SumCount > 9 {
+			minPrice := math.MaxInt64
+			minPriceIndex := -1
+			count := 0
+			for j, item := range orders[i].OrderItems {
+				if (item.TotalPrice / item.Count) < minPrice {
+					minPrice = item.TotalPrice / item.Count
+					minPriceIndex = j
+					count = item.Count
+				}
+			}
 
-		if orderCount > 9 {
-			sort.SliceStable(order.OrderItems, func(i, j int) bool {
-				return order.OrderItems[i].TotalPrice < order.OrderItems[j].TotalPrice
-			})
-			cheapestPrice := order.OrderItems[0].TotalPrice
-			orderSum -= cheapestPrice
+			if minPriceIndex != -1 {
+				orders[i].Sum -= (orders[i].OrderItems[minPriceIndex].TotalPrice / count)
+
+				fmt.Println(orders[i].Sum)
+			}
 		}
-		totalSum += orderSum
 	}
-
-	return totalSum
-
+	return orders
 }
 
 // ============== READERS ===================

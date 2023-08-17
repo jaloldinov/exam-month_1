@@ -14,5 +14,10 @@ func main() {
 		panic("Failed connect to json:" + err.Error())
 	}
 	con := controller.NewController(&cfg, strg)
-	fmt.Println(con)
+
+	resp := con.Task_11()
+
+	for _, items := range resp {
+		fmt.Println(items.Sum)
+	}
 }
