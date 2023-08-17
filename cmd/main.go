@@ -3,6 +3,7 @@ package main
 import (
 	"app/config"
 	"app/controller"
+	"app/models"
 	"app/storage/jsondb"
 	"fmt"
 )
@@ -14,10 +15,6 @@ func main() {
 		panic("Failed connect to json:" + err.Error())
 	}
 	con := controller.NewController(&cfg, strg)
-
-	resp := con.Task_11()
-
-	for _, items := range resp.Orders {
-		fmt.Println(items.Sum)
-	}
+	fmt.Println(con)
+	con.OrderPayment(&models.OrderPayment{OrderId: "ff9aa3v6-7dd2-4b2e-9376-93bc47391e82"})
 }

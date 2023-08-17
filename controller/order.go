@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"math"
 
 	"app/config"
 	"app/models"
@@ -143,11 +144,27 @@ func (c *Controller) OrderPayment(req *models.OrderPayment) error {
 	if order.Sum > user.Balance {
 		return errors.New("Not enough balance " + user.Name + " " + user.Surname)
 	}
+	// =========================================
+	if order.SumCount > 9 {
+		minPrice := math.MaxInt64
+		minPriceIndex := -1
+		count := 0
+		for j, item := range order.OrderItems {
+			if (item.TotalPrice / item.Count) < minPrice {
+				minPrice = item.TotalPrice / item.Count
+				minPriceIndex = j
+				count = item.Count
+			}
+		}
+		if minPriceIndex != -1 {
+			order.Sum -= (order.OrderItems[minPriceIndex].TotalPrice / count)
+		}
+	}
+	// =========================================
 
 	order.Status = config.OrderStatus["1"]
-	fmt.Println(order.Status)
 	user.Balance -= order.Sum
-
+	fmt.Println(order.Status)
 	var updateOrder models.UpdateOrder
 	err = convert.ConvertStructToStruct(order, &updateOrder)
 	if err != nil {
